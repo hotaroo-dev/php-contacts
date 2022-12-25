@@ -15,6 +15,7 @@
   if ($result->num_rows) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+      $notes = str_replace("'", "-", $row['notes']);
       $contact .=  "
       <div class='contact-wrapper' data-id='$row[id]'>
         <div>
@@ -26,7 +27,7 @@
           <p>$row[notes]</p>
           <span class='delete'>&times;</span>
           <a
-            href='edit.php?name=$row[name]&email=$row[email]&avatar=$row[avatar]&notes=$row[notes]'
+            href='edit.php?name=$row[name]&email=$row[email]&avatar=$row[avatar]&notes=$notes'
           >
             <button>Edit</button>
           </a>

@@ -5,7 +5,7 @@ if ($_GET['name']) {
     $_GET['name'], 
     $_GET['email'], 
     $_GET['avatar'], 
-    $_GET['notes']
+    str_replace("-", "'", $_GET['notes'])
   ));
 }
 
