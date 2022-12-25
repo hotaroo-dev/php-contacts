@@ -1,18 +1,18 @@
 <?php
 
-  $name = $_GET['q'];
+  $query = $_GET['q'];
 
   $conn = require "connect.php";
 
-  if ($name) {
-    $sql = "SELECT * FROM contacts WHERE name LIKE '$name%'";
+  if ($query) {
+    $sql = "SELECT * FROM contacts WHERE name LIKE '$query%'";
   } else {
     $sql = "SELECT * FROM contacts";
   }
 
   $result = $conn->query($sql);
 
-  if ($result->num_rows > 0) {
+  if ($result->num_rows) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
       $contact .=  "
@@ -69,7 +69,7 @@
           })
         })
 
-        var input = $('form input').val('<?=$name?>')
+        var input = $('form input').val('<?=$query?>')
 
         input.val() && input.focus()
         input.on('input', function() {
