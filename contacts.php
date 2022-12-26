@@ -15,7 +15,10 @@
   if ($result->num_rows) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      $notes = str_replace("'", "-", $row['notes']);
+      if (str_contains($row['notes'], "'")) {
+        $notes = str_replace("'", "-", $row['notes']);
+      }
+
       $contact .=  "
       <div class='contact-wrapper' data-id='$row[id]'>
         <div>
