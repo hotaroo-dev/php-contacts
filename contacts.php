@@ -15,28 +15,26 @@
   if ($result->num_rows) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      if (str_contains($row['notes'], "'")) {
-        $notes = str_replace("'", "-", $row['notes']);
-      }
-
+      $notes = str_replace("'", "-", $row['notes']);
       $contact .=  "
-      <div class='contact-wrapper' data-id='$row[id]'>
-        <div>
-          <img src='https://avatars.dicebear.com/api/open-peeps/$row[avatar].svg' />
+        <div class='contact-wrapper' data-id='$row[id]'>
+          <div>
+            <img src='https://avatars.dicebear.com/api/open-peeps/$row[avatar].svg' />
+          </div>
+          <div>
+            <h2>$row[name]</h2>  
+            <label>$row[email]</label>
+            <p>$row[notes]</p>
+            <span class='delete'>&times;</span>
+            <a
+              href='edit.php?name=$row[name]&email=$row[email]&avatar=$row[avatar]&notes=$notes'
+            >
+              <button>Edit</button>
+            </a>
+          </div>
         </div>
-        <div>
-          <h2>$row[name]</h2>  
-          <label>$row[email]</label>
-          <p>$row[notes]</p>
-          <span class='delete'>&times;</span>
-          <a
-            href='edit.php?name=$row[name]&email=$row[email]&avatar=$row[avatar]&notes=$notes'
-          >
-            <button>Edit</button>
-          </a>
-        </div>
-      </div>
-      "; }
+      "; 
+    }
   } else {
       $contact = "<p>No Contact</p>";
   }
@@ -88,7 +86,7 @@
       <Form id="search-form" role="search">
         <input placeholder="Search" type="search" name="q" />
       </Form>
-      <a href="edit.php">
+      <a href="edit.php?new=true">
         <button type="button">New</button>
       </a>
     </div>

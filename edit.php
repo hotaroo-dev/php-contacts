@@ -1,6 +1,6 @@
 <?php
 
-if ($_GET['name']) {
+if ( ! $_GET['new']) {
   $contact = json_encode(array(
     $_GET['name'], 
     $_GET['email'], 
@@ -32,7 +32,7 @@ if ($_GET['name']) {
   </head>
   <body>
     <div id="root">
-      <form action="insert.php" method="POST" id="contact-form" novalidate>
+      <form action="insert.php<?=$_GET['new'] ? "?new=$_GET[new]" : ''?>" method="POST" id="contact-form" novalidate>
         <p>
           <span>Name</span>
           <input type="text" name="name" placeholder="Name" defaultValue="100" />

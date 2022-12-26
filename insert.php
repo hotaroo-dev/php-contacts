@@ -14,20 +14,13 @@ if (strlen($_POST["notes"]) < 10) {
 
 $conn = require "connect.php";
 
-$sql = "SELECT * FROM contacts 
-        WHERE email = '$_POST[email]'";
-
-$stmt = $conn->prepare($sql);
-
-$result = $conn->query($sql);
-
-if ($result->num_rows) {
+if ($_GET["new"]) {
+  $sql = "INSERT INTO contacts (name, email, avatar, notes)
+          VALUES (?, ?, ?, ?)";
+} else {
   $sql = "UPDATE contacts 
           SET name = ?, email = ?, avatar = ?, notes = ?
           WHERE email = '$_POST[email]'";
-} else {
-  $sql = "INSERT INTO contacts (name, email, avatar, notes)
-          VALUES (?, ?, ?, ?)";
 }
 
 $stmt = $conn->prepare($sql);
